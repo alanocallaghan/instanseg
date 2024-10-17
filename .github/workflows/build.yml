@@ -35,3 +35,4 @@ jobs:
           labeled_output = instanseg_brightfield.eval(image = "CMU-1-Small-Region.tiff",
                                                       save_output = True,
                                                       save_overlay = True)
+          '
