@@ -25,3 +25,13 @@ jobs:
           python -c 'import instanseg'
           python -c 'from instanseg.utils.loss.lovasz_losses import binary_xloss'
           python -c 'from instanseg.utils.models.InstanSeg_UNet import DecoderBlock, EncoderBlock, conv_norm_act'
+      - name: Inference smoke test
+        run: |
+          wget https://github.com/user-attachments/files/17378191/CMU-1-Small-Region.zip
+          unzip CMU-1-Small-Region.zip
+          python -c '
+          from instanseg import InstanSeg
+          instanseg_brightfield = InstanSeg("brightfield_nuclei", image_reader= "tiffslide", verbosity=1)
+          labeled_output = instanseg_brightfield.eval(image = "CMU-1-Small-Region.tiff",
+                                                      save_output = True,
+                                                      save_overlay = True)
