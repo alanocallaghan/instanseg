@@ -380,10 +380,10 @@ class InstanSeg():
         if normalise:
             if image.dim() == 3:
                 image = percentile_normalize(image)
+                image = image[None]
             else:
                 image = torch.stack([percentile_normalize(i) for i in image])
-
-        if image.dim() == 3:
+        else:
             image = image[None]
 
         
