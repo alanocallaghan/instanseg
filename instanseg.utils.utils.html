@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InstanSeg utils &mdash; InstanSeg 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="InstanSeg pytorch_utils" href="instanseg.utils.pytorch_utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            InstanSeg
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="instanseg.html">API documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="instanseg.inference_class.html">InstanSeg inference class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.AI_utils.html">InstanSeg AI utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.augmentation_config.html">InstanSeg augmentation_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.augmentations.html">InstanSeg augmentations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.biological_utils.html">InstanSeg biological_utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.create_bioimageio_model.html">InstanSeg create_bioimageio_model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.data_download.html">InstanSeg data_download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.data_loader.html">InstanSeg data_loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.metrics.html">InstanSeg metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.model_loader.html">InstanSeg model_loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.pytorch_utils.html">InstanSeg pytorch_utils</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">InstanSeg utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.apply_cmap"><code class="docutils literal notranslate"><span class="pre">apply_cmap()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.color_name_to_rgb"><code class="docutils literal notranslate"><span class="pre">color_name_to_rgb()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.count_instances"><code class="docutils literal notranslate"><span class="pre">count_instances()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.display_as_grid"><code class="docutils literal notranslate"><span class="pre">display_as_grid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.display_cells_and_nuclei"><code class="docutils literal notranslate"><span class="pre">display_cells_and_nuclei()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.display_colourized"><code class="docutils literal notranslate"><span class="pre">display_colourized()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.download_model"><code class="docutils literal notranslate"><span class="pre">download_model()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.drag_and_drop_file"><code class="docutils literal notranslate"><span class="pre">drag_and_drop_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.export_annotations_and_images"><code class="docutils literal notranslate"><span class="pre">export_annotations_and_images()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.export_to_torchscript"><code class="docutils literal notranslate"><span class="pre">export_to_torchscript()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.generate_colors"><code class="docutils literal notranslate"><span class="pre">generate_colors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.interp"><code class="docutils literal notranslate"><span class="pre">interp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.labels_to_features"><code class="docutils literal notranslate"><span class="pre">labels_to_features()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.moving_average"><code class="docutils literal notranslate"><span class="pre">moving_average()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.percentile_normalize"><code class="docutils literal notranslate"><span class="pre">percentile_normalize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.plot_average"><code class="docutils literal notranslate"><span class="pre">plot_average()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.save_image_with_label_overlay"><code class="docutils literal notranslate"><span class="pre">save_image_with_label_overlay()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.set_export_paths"><code class="docutils literal notranslate"><span class="pre">set_export_paths()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.show_images"><code class="docutils literal notranslate"><span class="pre">show_images()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.utils.timer"><code class="docutils literal notranslate"><span class="pre">timer()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">InstanSeg</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="instanseg.html">API documentation</a></li>
+      <li class="breadcrumb-item active">InstanSeg utils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/instanseg.utils.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-instanseg.utils.utils">
+<span id="instanseg-utils"></span><h1>InstanSeg utils<a class="headerlink" href="#module-instanseg.utils.utils" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.apply_cmap">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">apply_cmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fg_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'coolwarm_r'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bg_intensity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">255</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.apply_cmap" title="Link to this definition"></a></dt>
+<dd><p>Apply a colormap to an image, with a background mask.
+x  and fg_mask should have the same shape, and be numpy arrays.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.color_name_to_rgb">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">color_name_to_rgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.color_name_to_rgb" title="Link to this definition"></a></dt>
+<dd><p>Convert a color name to its corresponding RGB values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>color_name</strong> – The name of the color.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the RGB values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.count_instances">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">count_instances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#instanseg.utils.utils.count_instances" title="Link to this definition"></a></dt>
+<dd><p>Count the total number of labelled pixels in an input tensor.
+:param labels: The input tensor.
+:return: The total number of non-zero labels.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.display_as_grid">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">display_as_grid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">display_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ncols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left_titles</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_titles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right_side</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title_height</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">12</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.display_as_grid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.display_cells_and_nuclei">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">display_cells_and_nuclei</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lab</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.display_cells_and_nuclei" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.display_colourized">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">display_colourized</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mIF</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.display_colourized" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.download_model">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">download_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.download_model" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.drag_and_drop_file">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">drag_and_drop_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.drag_and_drop_file" title="Link to this definition"></a></dt>
+<dd><p>This opens a window where a user can drop a file and returns the path to the file</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.export_annotations_and_images">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">export_annotations_and_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">original_image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.export_annotations_and_images" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.export_to_torchscript">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">export_to_torchscript</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_example</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'../torchscripts'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'../models'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">torchscript_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_optimized_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.export_to_torchscript" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.generate_colors">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">generate_colors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_colors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.generate_colors" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.interp">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">interp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.interp" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.labels_to_features">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">labels_to_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'annotation'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connectivity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Affine</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">downsample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classification</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">FeatureCollection</span></span></span><a class="headerlink" href="#instanseg.utils.utils.labels_to_features" title="Link to this definition"></a></dt>
+<dd><p>Create a GeoJSON FeatureCollection from a labeled image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>classification</strong> – Optional classification added to output features.</p></li>
+<li><p><strong>offset</strong> – Offset added to x coordinates of output features.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A GeoJSON FeatureCollection.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.moving_average">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">moving_average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.moving_average" title="Link to this definition"></a></dt>
+<dd><p>Moving average of an array x with window size w</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.percentile_normalize">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">percentile_normalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">img</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">percentile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subsampling_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.percentile_normalize" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.plot_average">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">plot_average</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">99</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.plot_average" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.save_image_with_label_overlay">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">save_image_with_label_overlay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">im</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'image'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clip_percentile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale_per_channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_boundary_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'inner'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_image</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.save_image_with_label_overlay" title="Link to this definition"></a></dt>
+<dd><p>Save an image as RGB alongside a corresponding label overlay.
+This can be used to quickly visualize the results of a segmentation, generally using the
+default image viewer of the operating system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>im</strong> – Image to save. If this is an 8-bit RGB image (channels-last) it will be used as-is,
+otherwise it will be converted to RGB</p></li>
+<li><p><strong>lab</strong> – Label image to overlay</p></li>
+<li><p><strong>output_dir</strong> – Directory to save to</p></li>
+<li><p><strong>base_name</strong> – Base name for the image files to save</p></li>
+<li><p><strong>clip_percentile</strong> – Percentile to clip the image at. Used during RGB conversion, if needed.</p></li>
+<li><p><strong>scale_per_channel</strong> – Whether to scale each channel independently during RGB conversion.</p></li>
+<li><p><strong>label_boundary_mode</strong> – A boundary mode compatible with scikit-image find_boundaries;
+one of ‘thick’, ‘inner’, ‘outer’, ‘subpixel’. If None, the lab is used directly.</p></li>
+<li><p><strong>alpha</strong> – Alpha value for the underlying image when using the overlay.
+Setting this less than 1 can help the overlay stand out more prominently.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The input image with corresponding label overlay if lab is a torch Tensor, or nothing otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.set_export_paths">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">set_export_paths</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.set_export_paths" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.show_images">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">show_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">img_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clip_pct</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">titles</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cols</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'viridis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timer_flag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">colorbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.show_images" title="Link to this definition"></a></dt>
+<dd><p>Designed to plot torch tensor and numpy arrays in windows robustly</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.utils.timer">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.utils.</span></span><span class="sig-name descname"><span class="pre">timer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.utils.timer" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="instanseg.utils.pytorch_utils.html" class="btn btn-neutral float-left" title="InstanSeg pytorch_utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Thibaut Goldsborough, The University of Edinburgh.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

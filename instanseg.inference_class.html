@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InstanSeg inference class &mdash; InstanSeg 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="InstanSeg AI utils" href="instanseg.utils.AI_utils.html" />
+    <link rel="prev" title="API documentation" href="instanseg.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            InstanSeg
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="instanseg.html">API documentation</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">InstanSeg inference class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.inference_class.InstanSeg"><code class="docutils literal notranslate"><span class="pre">InstanSeg</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#instanseg.inference_class.InstanSeg.display"><code class="docutils literal notranslate"><span class="pre">InstanSeg.display()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#instanseg.inference_class.InstanSeg.eval"><code class="docutils literal notranslate"><span class="pre">InstanSeg.eval()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#instanseg.inference_class.InstanSeg.eval_medium_image"><code class="docutils literal notranslate"><span class="pre">InstanSeg.eval_medium_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#instanseg.inference_class.InstanSeg.eval_small_image"><code class="docutils literal notranslate"><span class="pre">InstanSeg.eval_small_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#instanseg.inference_class.InstanSeg.eval_whole_slide_image"><code class="docutils literal notranslate"><span class="pre">InstanSeg.eval_whole_slide_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#instanseg.inference_class.InstanSeg.read_image"><code class="docutils literal notranslate"><span class="pre">InstanSeg.read_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#instanseg.inference_class.InstanSeg.read_pixel_size"><code class="docutils literal notranslate"><span class="pre">InstanSeg.read_pixel_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#instanseg.inference_class.InstanSeg.read_slide"><code class="docutils literal notranslate"><span class="pre">InstanSeg.read_slide()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#instanseg.inference_class.InstanSeg.save_output"><code class="docutils literal notranslate"><span class="pre">InstanSeg.save_output()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.AI_utils.html">InstanSeg AI utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.augmentation_config.html">InstanSeg augmentation_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.augmentations.html">InstanSeg augmentations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.biological_utils.html">InstanSeg biological_utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.create_bioimageio_model.html">InstanSeg create_bioimageio_model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.data_download.html">InstanSeg data_download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.data_loader.html">InstanSeg data_loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.metrics.html">InstanSeg metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.model_loader.html">InstanSeg model_loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.pytorch_utils.html">InstanSeg pytorch_utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.utils.html">InstanSeg utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">InstanSeg</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="instanseg.html">API documentation</a></li>
+      <li class="breadcrumb-item active">InstanSeg inference class</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/instanseg.inference_class.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-instanseg.inference_class">
+<span id="instanseg-inference-class"></span><h1>InstanSeg inference class<a class="headerlink" href="#module-instanseg.inference_class" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="instanseg.inference_class.InstanSeg">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">instanseg.inference_class.</span></span><span class="sig-name descname"><span class="pre">InstanSeg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Module</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'brightfield_nuclei'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_reader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'tiffslide'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbosity</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.inference_class.InstanSeg" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Main class for running InstanSeg.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_type</strong> – The type of model to use. If a string is provided, the model will be downloaded. If the model is not public, it will look for a model in your bioimageio folder. If an nn.Module is provided, this model will be used.</p></li>
+<li><p><strong>device</strong> – The device to run the model on. If None, the device will be chosen automatically.</p></li>
+<li><p><strong>image_reader</strong> – The image reader to use. Options are “tiffslide”, “skimage.io”, “bioio”, “AICSImageIO”.</p></li>
+<li><p><strong>verbosity</strong> – The verbosity level. 0 is silent, 1 is normal, 2 is verbose.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="instanseg.inference_class.InstanSeg.display">
+<span class="sig-name descname"><span class="pre">display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instances</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#instanseg.inference_class.InstanSeg.display" title="Link to this definition"></a></dt>
+<dd><p>Save the output of an InstanSeg model overlaid on the input.
+See <code class="xref py py-func docutils literal notranslate"><span class="pre">save_image_with_label_overlay</span></code> for more details and return types.
+:param image: The input image.
+:param instances: The output labels.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="instanseg.inference_class.InstanSeg.eval">
+<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_overlay</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_geojson</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#instanseg.inference_class.InstanSeg.eval" title="Link to this definition"></a></dt>
+<dd><p>Evaluate the input image or list of images using the InstanSeg model.
+:param image: The path to the image, or a list of such paths.
+:param pixel_size: The pixel size in microns.
+:param save_output: Controls whether the output is saved to disk (see <code class="xref py py-func docutils literal notranslate"><span class="pre">save_output</span></code>).
+:param save_overlay: Controls whether the output is saved to disk as an overlay (see <code class="xref py py-func docutils literal notranslate"><span class="pre">save_output</span></code>).
+:param save_geojson: Controls whether the geojson output labels are saved to disk (see <code class="xref py py-func docutils literal notranslate"><span class="pre">save_output</span></code>).
+:param kwargs: Passed to other eval methods, eg <code class="xref py py-func docutils literal notranslate"><span class="pre">save_output</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">save_output</span></code>, <code class="xref py py-func docutils literal notranslate"><span class="pre">save_output</span></code> 
+:return: A torch.Tensor of outputs if the input is a path to a single image, or a list of such outputs if the input is a list of paths, or None if the input is a whole slide image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="instanseg.inference_class.InstanSeg.eval_medium_image">
+<span class="sig-name descname"><span class="pre">eval_medium_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_image_tensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalisation_subsampling_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'all_outputs'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#instanseg.inference_class.InstanSeg.eval_medium_image" title="Link to this definition"></a></dt>
+<dd><p>Evaluate a medium input image using the InstanSeg model. The image will be split into tiles, and then inference and object merging will be handled internally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image:</strong> – The input image(s) to be evaluated.</p></li>
+<li><p><strong>pixel_size</strong> – The pixel size of the image, in microns. If not provided, it will be read from the image metadata.</p></li>
+<li><p><strong>normalise</strong> – Controls whether the image is normalised.</p></li>
+<li><p><strong>tile_size</strong> – The width/height of the tiles that the image will be split into.</p></li>
+<li><p><strong>batch_size</strong> – The number of tiles to be run simultaneously.</p></li>
+<li><p><strong>return_image_tensor</strong> – Controls whether the input image is returned as part of the output.</p></li>
+<li><p><strong>normalisation_subsampling_factor</strong> – The subsampling or downsample factor at which to calculate normalisation parameters.</p></li>
+<li><p><strong>target</strong> – Controls what type of output is given, usually “all_outputs”, “nuclei”, or “cells”.</p></li>
+<li><p><strong>rescale_output</strong> – Controls whether the outputs should be rescaled to the same coordinate space as the input (useful if the pixel size is different to that of the InstanSeg model being used).</p></li>
+<li><p><strong>kwargs</strong> – Passed to pytorch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tensor corresponding to the output targets specified, as well as the input image if requested.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="instanseg.inference_class.InstanSeg.eval_small_image">
+<span class="sig-name descname"><span class="pre">eval_small_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_image_tensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'all_outputs'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rescale_output</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#instanseg.inference_class.InstanSeg.eval_small_image" title="Link to this definition"></a></dt>
+<dd><p>Evaluate a small input image using the InstanSeg model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image:</strong> – The input image(s) to be evaluated.</p></li>
+<li><p><strong>pixel_size</strong> – The pixel size of the image, in microns. If not provided, it will be read from the image metadata.</p></li>
+<li><p><strong>normalise</strong> – Controls whether the image is normalised.</p></li>
+<li><p><strong>return_image_tensor</strong> – Controls whether the input image is returned as part of the output.</p></li>
+<li><p><strong>target</strong> – Controls what type of output is given, usually “all_outputs”, “nuclei”, or “cells”.</p></li>
+<li><p><strong>rescale_output</strong> – Controls whether the outputs should be rescaled to the same coordinate space as the input (useful if the pixel size is different to that of the InstanSeg model being used).</p></li>
+<li><p><strong>kwargs</strong> – Passed to pytorch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tensor corresponding to the output targets specified, as well as the input image if requested.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="instanseg.inference_class.InstanSeg.eval_whole_slide_image">
+<span class="sig-name descname"><span class="pre">eval_whole_slide_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalisation_subsampling_factor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">512</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_geojson</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_otsu_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.inference_class.InstanSeg.eval_whole_slide_image" title="Link to this definition"></a></dt>
+<dd><p>Evaluate a whole slide input image using the InstanSeg model. This function uses slideio to read an image and then segments it using the instanseg model. The segmentation is done in a tiled manner to avoid memory issues.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> – The input image to be evaluated.</p></li>
+<li><p><strong>pixel_size</strong> – The pixel size of the image, in microns. If not provided, it will be read from the image metadata.</p></li>
+<li><p><strong>normalise</strong> – Controls whether the image is normalised.</p></li>
+<li><p><strong>tile_size</strong> – The width/height of the tiles that the image will be split into.</p></li>
+<li><p><strong>overlap</strong> – The overlap (in pixels) betwene tiles.</p></li>
+<li><p><strong>detection_size</strong> – The expected maximum size of detection objects.</p></li>
+<li><p><strong>batch_size</strong> – The number of tiles to be run simultaneously.</p></li>
+<li><p><strong>normalisation_subsampling_factor</strong> – The subsampling or downsample factor at which to calculate normalisation parameters.</p></li>
+<li><p><strong>use_otsu_threshold</strong> – bool = False. Whether to use an otsu threshold on the image thumbnail to find the tissue region.</p></li>
+<li><p><strong>kwargs</strong> – Passed to pytorch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a zarr file with the segmentation. The zarr file is saved in the same directory as the image with the same name but with the extension .zarr.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="instanseg.inference_class.InstanSeg.read_image">
+<span class="sig-name descname"><span class="pre">read_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#instanseg.inference_class.InstanSeg.read_image" title="Link to this definition"></a></dt>
+<dd><p>Read an image file from disk.
+:param image_str: The path to the image.
+:return: The image array if it can be safely read (or the path to the image if it cannot) and the pixel size in microns.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="instanseg.inference_class.InstanSeg.read_pixel_size">
+<span class="sig-name descname"><span class="pre">read_pixel_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#instanseg.inference_class.InstanSeg.read_pixel_size" title="Link to this definition"></a></dt>
+<dd><p>Read the pixel size from an image on disk.
+:param image_str: The path to the image.
+:return: The pixel size in microns.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="instanseg.inference_class.InstanSeg.read_slide">
+<span class="sig-name descname"><span class="pre">read_slide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.inference_class.InstanSeg.read_slide" title="Link to this definition"></a></dt>
+<dd><p>Read a whole slide image from disk.
+:param image_str: The path to the image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="instanseg.inference_class.InstanSeg.save_output">
+<span class="sig-name descname"><span class="pre">save_output</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_overlay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_geojson</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#instanseg.inference_class.InstanSeg.save_output" title="Link to this definition"></a></dt>
+<dd><p>Save the output of InstanSeg to disk.
+:param image_path: The path to the image, and where outputs will be saved.
+:param labels: The output labels.
+:param image_array: The image in array format. Required to save overlay.
+:param save_overlay: Save the labels overlaid on the image.
+:param save_geojson: Save the labels as a GeoJSON feature collection.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="instanseg.html" class="btn btn-neutral float-left" title="API documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="instanseg.utils.AI_utils.html" class="btn btn-neutral float-right" title="InstanSeg AI utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Thibaut Goldsborough, The University of Edinburgh.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

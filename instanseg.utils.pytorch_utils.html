@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InstanSeg pytorch_utils &mdash; InstanSeg 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="InstanSeg utils" href="instanseg.utils.utils.html" />
+    <link rel="prev" title="InstanSeg model_loader" href="instanseg.utils.model_loader.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            InstanSeg
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="instanseg.html">API documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="instanseg.inference_class.html">InstanSeg inference class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.AI_utils.html">InstanSeg AI utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.augmentation_config.html">InstanSeg augmentation_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.augmentations.html">InstanSeg augmentations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.biological_utils.html">InstanSeg biological_utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.create_bioimageio_model.html">InstanSeg create_bioimageio_model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.data_download.html">InstanSeg data_download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.data_loader.html">InstanSeg data_loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.metrics.html">InstanSeg metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.model_loader.html">InstanSeg model_loader</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">InstanSeg pytorch_utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.centroids_from_lab"><code class="docutils literal notranslate"><span class="pre">centroids_from_lab()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.connected_components"><code class="docutils literal notranslate"><span class="pre">connected_components()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.dilate"><code class="docutils literal notranslate"><span class="pre">dilate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.eccentricity_batch"><code class="docutils literal notranslate"><span class="pre">eccentricity_batch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.expand_labels_map"><code class="docutils literal notranslate"><span class="pre">expand_labels_map()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.fast_dual_iou"><code class="docutils literal notranslate"><span class="pre">fast_dual_iou()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.fast_iou"><code class="docutils literal notranslate"><span class="pre">fast_iou()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.fast_sparse_dual_iou"><code class="docutils literal notranslate"><span class="pre">fast_sparse_dual_iou()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.fast_sparse_intersection_over_minimum_area"><code class="docutils literal notranslate"><span class="pre">fast_sparse_intersection_over_minimum_area()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.fast_sparse_iou"><code class="docutils literal notranslate"><span class="pre">fast_sparse_iou()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.feature_extractor"><code class="docutils literal notranslate"><span class="pre">feature_extractor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.fill_holes"><code class="docutils literal notranslate"><span class="pre">fill_holes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.find_boundaries_max_pool_labeled"><code class="docutils literal notranslate"><span class="pre">find_boundaries_max_pool_labeled()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.find_hard_boundaries"><code class="docutils literal notranslate"><span class="pre">find_hard_boundaries()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.flood_fill"><code class="docutils literal notranslate"><span class="pre">flood_fill()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.get_masked_patches"><code class="docutils literal notranslate"><span class="pre">get_masked_patches()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.get_patches"><code class="docutils literal notranslate"><span class="pre">get_patches()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.instance_wise_edt"><code class="docutils literal notranslate"><span class="pre">instance_wise_edt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.iou_heatmap"><code class="docutils literal notranslate"><span class="pre">iou_heatmap()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.iou_test"><code class="docutils literal notranslate"><span class="pre">iou_test()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.match_labels"><code class="docutils literal notranslate"><span class="pre">match_labels()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.remap_values"><code class="docutils literal notranslate"><span class="pre">remap_values()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.torch_fastremap"><code class="docutils literal notranslate"><span class="pre">torch_fastremap()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.torch_onehot"><code class="docutils literal notranslate"><span class="pre">torch_onehot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.pytorch_utils.torch_sparse_onehot"><code class="docutils literal notranslate"><span class="pre">torch_sparse_onehot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.utils.html">InstanSeg utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">InstanSeg</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="instanseg.html">API documentation</a></li>
+      <li class="breadcrumb-item active">InstanSeg pytorch_utils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/instanseg.utils.pytorch_utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-instanseg.utils.pytorch_utils">
+<span id="instanseg-pytorch-utils"></span><h1>InstanSeg pytorch_utils<a class="headerlink" href="#module-instanseg.utils.pytorch_utils" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.centroids_from_lab">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">centroids_from_lab</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.pytorch_utils.centroids_from_lab" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.connected_components">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">connected_components</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iterations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">32</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.connected_components" title="Link to this definition"></a></dt>
+<dd><p>This function takes a binary image and returns the connected components</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.dilate">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">dilate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iterations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.dilate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.eccentricity_batch">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">eccentricity_batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask_tensor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.pytorch_utils.eccentricity_batch" title="Link to this definition"></a></dt>
+<dd><p>Calculate the eccentricity of a batch of binary masks. B,H,W -&gt; returns B</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.expand_labels_map">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">expand_labels_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labeled_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iterations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.expand_labels_map" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.fast_dual_iou">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">fast_dual_iou</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onehot1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onehot2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.fast_dual_iou" title="Link to this definition"></a></dt>
+<dd><p>Returns the intersection over union between two dense onehot encoded tensors</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.fast_iou">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">fast_iou</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onehot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.fast_iou" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.fast_sparse_dual_iou">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">fast_sparse_dual_iou</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">onehot1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">onehot2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.fast_sparse_dual_iou" title="Link to this definition"></a></dt>
+<dd><p>Returns the (dense) intersection over union between two sparse onehot encoded tensors</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.fast_sparse_intersection_over_minimum_area">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">fast_sparse_intersection_over_minimum_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse_onehot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.fast_sparse_intersection_over_minimum_area" title="Link to this definition"></a></dt>
+<dd><p>Computes the sparse Intersection over Minimum Area (IoMA) for a given boolean sparse one-hot tensor.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><p>sparse_onehot (torch.Tensor): A boolean sparse tensor of shape (N, M).</p>
+</dd>
+<dt>Returns:</dt><dd><p>torch.Tensor: A dense tensor of shape (N, N) containing the IoMA values.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.fast_sparse_iou">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">fast_sparse_iou</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sparse_onehot</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.fast_sparse_iou" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.feature_extractor">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">feature_extractor</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.pytorch_utils.feature_extractor" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.fill_holes">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">fill_holes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bw_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.pytorch_utils.fill_holes" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.find_boundaries_max_pool_labeled">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">find_boundaries_max_pool_labeled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labeled_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.find_boundaries_max_pool_labeled" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.find_hard_boundaries">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">find_hard_boundaries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labeled_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.find_hard_boundaries" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.flood_fill">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">flood_fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bw_mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.pytorch_utils.flood_fill" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.get_masked_patches">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">get_masked_patches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">64</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.pytorch_utils.get_masked_patches" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.get_patches">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">get_patches</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_lab_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.pytorch_utils.get_patches" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.instance_wise_edt">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">instance_wise_edt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">edt_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'auto'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.instance_wise_edt" title="Link to this definition"></a></dt>
+<dd><p>Create instance-normalized distance map from a labeled image.
+Each pixel within an instance gives the distance to the closed background pixel,
+divided by the maximum distance (so that the maximum within an instance is 1).</p>
+<p>The calculation of the Euclidean Distance Transform can use the ‘edt’ or ‘monai’
+packages.
+‘edt’ is faster for CPU computation, while ‘monai’ can use cucim for GPU acceleration
+where CUDA is available.
+Use ‘auto’ to decide automatically.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.iou_heatmap">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">iou_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.iou_heatmap" title="Link to this definition"></a></dt>
+<dd><p>x is H,W
+y is H,W
+This function takes two labeled images and returns the intersection over union heatmap</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.iou_test">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">iou_test</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.pytorch_utils.iou_test" title="Link to this definition"></a></dt>
+<dd><p>Unit test for the fast dual iou functions</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.match_labels">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">match_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tile_1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tile_2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.pytorch_utils.match_labels" title="Link to this definition"></a></dt>
+<dd><p>This function takes two labeled tiles, and matches the overlapping labels of tile_2 to the labels of tile_1.
+If strict is set to True, the function will discard non matching objects.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.remap_values">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">remap_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">remapping</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.remap_values" title="Link to this definition"></a></dt>
+<dd><p>This remaps the values in x according to the pairs in the remapping tensor.
+remapping: 2,N      Make sure the remapping is 1 to 1, and there are no loops (i.e. 1-&gt;2, 2-&gt;3, 3-&gt;1). Loops can be removed using graph based connected components algorithms (see instanseg postprocessing for an example)
+x: any shape</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.torch_fastremap">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">torch_fastremap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.torch_fastremap" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.torch_onehot">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">torch_onehot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.torch_onehot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.pytorch_utils.torch_sparse_onehot">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.pytorch_utils.</span></span><span class="sig-name descname"><span class="pre">torch_sparse_onehot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flatten</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#instanseg.utils.pytorch_utils.torch_sparse_onehot" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="instanseg.utils.model_loader.html" class="btn btn-neutral float-left" title="InstanSeg model_loader" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="instanseg.utils.utils.html" class="btn btn-neutral float-right" title="InstanSeg utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Thibaut Goldsborough, The University of Edinburgh.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

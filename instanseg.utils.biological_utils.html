@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InstanSeg biological_utils &mdash; InstanSeg 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=01f34227"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="InstanSeg create_bioimageio_model" href="instanseg.utils.create_bioimageio_model.html" />
+    <link rel="prev" title="InstanSeg augmentations" href="instanseg.utils.augmentations.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            InstanSeg
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="instanseg.html">API documentation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="instanseg.inference_class.html">InstanSeg inference class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.AI_utils.html">InstanSeg AI utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.augmentation_config.html">InstanSeg augmentation_config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.augmentations.html">InstanSeg augmentations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">InstanSeg biological_utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.biological_utils.get_features_by_location"><code class="docutils literal notranslate"><span class="pre">get_features_by_location()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.biological_utils.get_intersection_over_cell_area"><code class="docutils literal notranslate"><span class="pre">get_intersection_over_cell_area()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.biological_utils.get_intersection_over_nucleus_area"><code class="docutils literal notranslate"><span class="pre">get_intersection_over_nucleus_area()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.biological_utils.get_intersection_over_union"><code class="docutils literal notranslate"><span class="pre">get_intersection_over_union()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.biological_utils.get_mean_object_features"><code class="docutils literal notranslate"><span class="pre">get_mean_object_features()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.biological_utils.get_multinucleated_cell_ids"><code class="docutils literal notranslate"><span class="pre">get_multinucleated_cell_ids()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.biological_utils.get_nc_ratio"><code class="docutils literal notranslate"><span class="pre">get_nc_ratio()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.biological_utils.get_nonnucleated_cell_ids"><code class="docutils literal notranslate"><span class="pre">get_nonnucleated_cell_ids()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.biological_utils.get_nucleated_cell_ids"><code class="docutils literal notranslate"><span class="pre">get_nucleated_cell_ids()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.biological_utils.keep_only_largest_nucleus_per_cell"><code class="docutils literal notranslate"><span class="pre">keep_only_largest_nucleus_per_cell()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.biological_utils.nc_heatmap"><code class="docutils literal notranslate"><span class="pre">nc_heatmap()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.biological_utils.resolve_cell_and_nucleus_boundaries"><code class="docutils literal notranslate"><span class="pre">resolve_cell_and_nucleus_boundaries()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.biological_utils.show_umap_and_cluster"><code class="docutils literal notranslate"><span class="pre">show_umap_and_cluster()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instanseg.utils.biological_utils.violin_plot_feature_location"><code class="docutils literal notranslate"><span class="pre">violin_plot_feature_location()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.create_bioimageio_model.html">InstanSeg create_bioimageio_model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.data_download.html">InstanSeg data_download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.data_loader.html">InstanSeg data_loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.metrics.html">InstanSeg metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.model_loader.html">InstanSeg model_loader</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.pytorch_utils.html">InstanSeg pytorch_utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="instanseg.utils.utils.html">InstanSeg utils</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">InstanSeg</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="instanseg.html">API documentation</a></li>
+      <li class="breadcrumb-item active">InstanSeg biological_utils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/instanseg.utils.biological_utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="instanseg-biological-utils">
+<h1>InstanSeg biological_utils<a class="headerlink" href="#instanseg-biological-utils" title="Link to this heading"></a></h1>
+<dl class="py function" id="module-instanseg.utils.biological_utils">
+<dt class="sig sig-object py" id="instanseg.utils.biological_utils.get_features_by_location">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.biological_utils.</span></span><span class="sig-name descname"><span class="pre">get_features_by_location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_tensor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_numpy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#instanseg.utils.biological_utils.get_features_by_location" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.biological_utils.get_intersection_over_cell_area">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.biological_utils.</span></span><span class="sig-name descname"><span class="pre">get_intersection_over_cell_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_lab</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#instanseg.utils.biological_utils.get_intersection_over_cell_area" title="Link to this definition"></a></dt>
+<dd><p>Returns the intersection over cell area in a 2 channel labeled image</p>
+<p>label must be a 1,2,H,W tensor where the first channel is nuclei and the second is whole cell</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.biological_utils.get_intersection_over_nucleus_area">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.biological_utils.</span></span><span class="sig-name descname"><span class="pre">get_intersection_over_nucleus_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#instanseg.utils.biological_utils.get_intersection_over_nucleus_area" title="Link to this definition"></a></dt>
+<dd><p>Returns the intersection over nucleus area in a 2 channel labeled image</p>
+<p>label must be a 1,2,H,W tensor where the first channel is nuclei and the second is whole cell</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.biological_utils.get_intersection_over_union">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.biological_utils.</span></span><span class="sig-name descname"><span class="pre">get_intersection_over_union</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.biological_utils.get_intersection_over_union" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.biological_utils.get_mean_object_features">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.biological_utils.</span></span><span class="sig-name descname"><span class="pre">get_mean_object_features</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.biological_utils.get_mean_object_features" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.biological_utils.get_multinucleated_cell_ids">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.biological_utils.</span></span><span class="sig-name descname"><span class="pre">get_multinucleated_cell_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iou</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.biological_utils.get_multinucleated_cell_ids" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.biological_utils.get_nc_ratio">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.biological_utils.</span></span><span class="sig-name descname"><span class="pre">get_nc_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lab</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.biological_utils.get_nc_ratio" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.biological_utils.get_nonnucleated_cell_ids">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.biological_utils.</span></span><span class="sig-name descname"><span class="pre">get_nonnucleated_cell_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iou</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.biological_utils.get_nonnucleated_cell_ids" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.biological_utils.get_nucleated_cell_ids">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.biological_utils.</span></span><span class="sig-name descname"><span class="pre">get_nucleated_cell_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iou</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.biological_utils.get_nucleated_cell_ids" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.biological_utils.keep_only_largest_nucleus_per_cell">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.biological_utils.</span></span><span class="sig-name descname"><span class="pre">keep_only_largest_nucleus_per_cell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Tensor</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Tensor</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#instanseg.utils.biological_utils.keep_only_largest_nucleus_per_cell" title="Link to this definition"></a></dt>
+<dd><p>labels: tensor of shape 1,2,H,W containing nucleus and cell labels respectively
+return_lab: if True, returns the labels with only the largest nucleus per cell, and only cells that have a nucleus.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.biological_utils.nc_heatmap">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.biological_utils.</span></span><span class="sig-name descname"><span class="pre">nc_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.biological_utils.nc_heatmap" title="Link to this definition"></a></dt>
+<dd><p>label is a 1,2,H,W tensor where the first channel is nuclei and the second is whole cell
+This function takes two labeled images and returns the nucleus/cell ratio heatmap</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.biological_utils.resolve_cell_and_nucleus_boundaries">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.biological_utils.</span></span><span class="sig-name descname"><span class="pre">resolve_cell_and_nucleus_boundaries</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lab</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_unnucleated_cells</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tensor</span></span></span><a class="headerlink" href="#instanseg.utils.biological_utils.resolve_cell_and_nucleus_boundaries" title="Link to this definition"></a></dt>
+<dd><p>lab: tensor of shape 1,2,H,W containing nucleus and cell labels respectively</p>
+<p>returns: tensor of the same shape as lab</p>
+<p>This function will resolve the boundaries between cells and nuclei. 
+It will first match the labels of the largest nucleus and its cell.
+It will then erase from the cell masks all the nuclei pixels. This resolves nuclei “just” overlapping adjacent cell.
+It will then recover the nuclei pixels that were erased by adding them back to the cell masks.</p>
+<p>allow_unnucleated_cells: If False, this will remove all cells that don’t have a nucleus.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.biological_utils.show_umap_and_cluster">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.biological_utils.</span></span><span class="sig-name descname"><span class="pre">show_umap_and_cluster</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_features</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.biological_utils.show_umap_and_cluster" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="instanseg.utils.biological_utils.violin_plot_feature_location">
+<span class="sig-prename descclassname"><span class="pre">instanseg.utils.biological_utils.</span></span><span class="sig-name descname"><span class="pre">violin_plot_feature_location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_nuclei</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_cytoplasm</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clamp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#instanseg.utils.biological_utils.violin_plot_feature_location" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="instanseg.utils.augmentations.html" class="btn btn-neutral float-left" title="InstanSeg augmentations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="instanseg.utils.create_bioimageio_model.html" class="btn btn-neutral float-right" title="InstanSeg create_bioimageio_model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Thibaut Goldsborough, The University of Edinburgh.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
