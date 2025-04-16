@@ -12,7 +12,6 @@ This page contains the list of public classes and functions of the InstanSeg pac
    instanseg.utils.augmentation_config
    instanseg.utils.augmentations
    instanseg.utils.biological_utils
-   instanseg.utils.create_bioimageio_model
    instanseg.utils.data_download
    instanseg.utils.data_loader
    instanseg.utils.metrics
@@ -20,4 +19,5 @@ This page contains the list of public classes and functions of the InstanSeg pac
    instanseg.utils.pytorch_utils
    instanseg.utils.utils
 
+   .. instanseg.utils.create_bioimageio_model
    .. instanseg.utils.tiling
