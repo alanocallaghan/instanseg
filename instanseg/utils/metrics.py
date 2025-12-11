@@ -165,7 +165,7 @@ def test_matching_dataset_torch():
     _check_is_equal(out_instanseg,out_stardist)
 
 
-use_stardist = False
+use_stardist = True
 if use_stardist:
     from stardist.matching import matching_dataset as matching
 else:
