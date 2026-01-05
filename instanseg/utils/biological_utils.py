@@ -146,9 +146,49 @@ def keep_only_largest_nucleus_per_cell(labels: torch.Tensor, return_lab: bool = 
              labels[0, 1] * torch.isin(labels[0, 1], cell_ids[nucleated_cells]))).unsqueeze(0)
     return (nuclei_ids[largest_nucleus],nuclei_ids[largest_nucleus]) #the duplication is to keep torchscript happy
 
+def merge_nuclei_per_cell(labels: torch.Tensor, allow_unnucleated_cells: bool = True) -> torch.Tensor:
+    """
+    labels: tensor of shape (1, 2, H, W)
+      labels[0,0]: nucleus instance labels
+      labels[0,1]: cell instance labels
 
+    allow_unnucleated_cells:
+      False  -> remove cells with no nucleus
+      True -> duplicate cell mask as nucleus for unnucleated cells
 
-def resolve_cell_and_nucleus_boundaries(lab: torch.Tensor, allow_unnucleated_cells: bool = True) -> torch.Tensor:
+    Behavior:
+      - all nuclei within a cell are merged
+      - nucleus label == cell label
+    """
+    labels = torch_fastremap(labels)
+
+    nuc = labels[0, 0]
+    cell = labels[0, 1]
+
+    merged_nuc = torch.zeros_like(nuc)
+
+    # nucleus pixels inside cells
+    nuc_in_cell = (nuc > 0) & (cell > 0)
+    merged_nuc[nuc_in_cell] = cell[nuc_in_cell]
+
+    cell_ids = torch.unique(cell[cell > 0])
+    nucleated_cells = torch.unique(cell[nuc_in_cell])
+    unnucleated_cells = cell_ids[~torch.isin(cell_ids, nucleated_cells)]
+
+    if allow_unnucleated_cells:
+        # duplicate cell mask as nucleus
+        for cid in unnucleated_cells:
+            merged_nuc[cell == cid] = cid
+        filtered_cell = cell
+    else:
+        # remove unnucleated cells
+        keep = nucleated_cells
+        merged_nuc = merged_nuc * torch.isin(cell, keep)
+        filtered_cell = cell * torch.isin(cell, keep)
+
+    return torch.stack((merged_nuc, filtered_cell)).unsqueeze(0)
+
+def resolve_cell_and_nucleus_boundaries(lab: torch.Tensor, allow_unnucleated_cells: bool = True, allow_multinucleated_cells: bool = False) -> torch.Tensor:
     """
     lab: tensor of shape 1,2,H,W containing nucleus and cell labels respectively
 
@@ -176,7 +216,10 @@ def resolve_cell_and_nucleus_boundaries(lab: torch.Tensor, allow_unnucleated_cel
     original_nuclei_labels = lab[0, 0].clone()
     original_cell_labels = lab[0, 1].clone()
     
-    _, lab = keep_only_largest_nucleus_per_cell(lab, return_lab=True) # There will now be as many cells as there are nuclei. But the labels are not yet matched
+    if allow_multinucleated_cells:
+        lab = merge_nuclei_per_cell(lab, allow_unnucleated_cells=allow_unnucleated_cells)
+    else:
+        _, lab = keep_only_largest_nucleus_per_cell(lab, return_lab=True) # There will now be as many cells as there are nuclei. But the labels are not yet matched
 
     lab = torch.stack((torch_fastremap(lab[0, 0]), torch_fastremap(lab[0, 1]))).unsqueeze(0)
      
@@ -209,7 +252,6 @@ def resolve_cell_and_nucleus_boundaries(lab: torch.Tensor, allow_unnucleated_cel
     cell_labels += nuclei_labels
 
     if allow_unnucleated_cells:
-
         cell_labels[cell_labels == 0] = (original_cell_labels[cell_labels == 0] + cell_labels.max()) * (original_cell_labels > 0)[cell_labels == 0].float() #this step can create small fragments. This is not a bug - but may have to be cleaned up in the future.
         
     return torch.stack((nuclei_labels, cell_labels)).unsqueeze(0)
