@@ -165,26 +165,44 @@ def merge_nuclei_per_cell(labels: torch.Tensor, allow_unnucleated_cells: bool = 
     nuc = labels[0, 0]
     cell = labels[0, 1]
 
+    iou, _ = get_intersection_over_nucleus_area(labels)
+
+    # valid nucleus–cell matches
+    match = iou >= 0.5
+
+    # nucleus matched to at least one cell
+    nuc_matched = match.any(1)
+
+    # cell matched to at least one nucleus
+    cell_matched = match.any(0)
+
+    nuc_ids = torch.unique(nuc[nuc > 0])
+    cell_ids = torch.unique(cell[cell > 0])
+
+    matched_nuc_ids = nuc_ids[nuc_matched]
+    matched_cell_ids = cell_ids[cell_matched]
+
+    # build merged nucleus channel
     merged_nuc = torch.zeros_like(nuc)
 
-    # nucleus pixels inside cells
-    nuc_in_cell = (nuc > 0) & (cell > 0)
-    merged_nuc[nuc_in_cell] = cell[nuc_in_cell]
-
-    cell_ids = torch.unique(cell[cell > 0])
-    nucleated_cells = torch.unique(cell[nuc_in_cell])
-    unnucleated_cells = cell_ids[~torch.isin(cell_ids, nucleated_cells)]
+    for ni, cid_mask in zip(matched_nuc_ids, match[nuc_matched]):
+        cids = cell_ids[cid_mask]
+        # assign nucleus pixels only where overlapping matched cells
+        for cid in cids:
+            mask = (nuc == ni) & (cell == cid)
+            merged_nuc[mask] = cid
 
     if allow_unnucleated_cells:
-        # duplicate cell mask as nucleus
-        for cid in unnucleated_cells:
-            merged_nuc[cell == cid] = cid
-        filtered_cell = cell
-    else:
-        # remove unnucleated cells
-        keep = nucleated_cells
+        # drop unmatched cells
+        keep = matched_cell_ids
         merged_nuc = merged_nuc * torch.isin(cell, keep)
         filtered_cell = cell * torch.isin(cell, keep)
+    else:
+        # duplicate unmatched cells
+        unmatched_cells = cell_ids[~cell_matched]
+        for cid in unmatched_cells:
+            merged_nuc[cell == cid] = cid
+        filtered_cell = cell
 
     return torch.stack((merged_nuc, filtered_cell)).unsqueeze(0)
 
