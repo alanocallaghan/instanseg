@@ -27,8 +27,26 @@ def get_intersection_over_nucleus_area(label: torch.Tensor, return_lab: bool = F
     label must be a 1,2,H,W tensor where the first channel is nuclei and the second is whole cell
     """
     label = torch.stack((torch_fastremap(label[0,0]),torch_fastremap(label[0,1])))[None]
-    nuclei_onehot = torch_sparse_onehot(label[0, 0], flatten=True)[0]
-    cell_onehot = torch_sparse_onehot(label[0, 1], flatten=True)[0]
+
+    nuc = label[0,0]
+    cell = label[0,1]
+
+    nuc_ids = torch.unique(nuc[nuc > 0])
+    cell_ids = torch.unique(cell[cell > 0])
+
+    num_nuc = len(nuc_ids)
+    num_cell = len(cell_ids)
+
+    # ----- HARD EXIT: no nuclei or no cells -----
+    if num_nuc == 0 or num_cell == 0:
+        intersection = torch.zeros((num_nuc, num_cell), device=label.device)
+        nuclei_area = torch.zeros((num_nuc, 1), device=label.device)
+        if return_lab:
+            return intersection, label
+        return intersection, nuclei_area
+
+    nuclei_onehot = torch_sparse_onehot(nuc, flatten=True)[0]
+    cell_onehot = torch_sparse_onehot(cell, flatten=True)[0]
     intersection = torch.sparse.mm(nuclei_onehot, cell_onehot.T).to_dense()
     sparse_sum1 = torch.sparse.sum(nuclei_onehot, dim=(1,))[None].to_dense()
     nuclei_area = sparse_sum1.T
@@ -146,7 +164,7 @@ def keep_only_largest_nucleus_per_cell(labels: torch.Tensor, return_lab: bool = 
              labels[0, 1] * torch.isin(labels[0, 1], cell_ids[nucleated_cells]))).unsqueeze(0)
     return (nuclei_ids[largest_nucleus],nuclei_ids[largest_nucleus]) #the duplication is to keep torchscript happy
 
-def merge_nuclei_per_cell(labels: torch.Tensor, allow_unnucleated_cells: bool = True) -> torch.Tensor:
+def merge_nuclei_per_cell(labels: torch.Tensor, allow_unnucleated_cells: bool = True, iou_thresh=0.5) -> torch.Tensor:
     """
     labels: tensor of shape (1, 2, H, W)
       labels[0,0]: nucleus instance labels
@@ -168,7 +186,7 @@ def merge_nuclei_per_cell(labels: torch.Tensor, allow_unnucleated_cells: bool = 
     iou, _ = get_intersection_over_nucleus_area(labels)
 
     # valid nucleus–cell matches
-    match = iou >= 0.5
+    match = iou >= iou_thresh
 
     # nucleus matched to at least one cell
     nuc_matched = match.any(1)
