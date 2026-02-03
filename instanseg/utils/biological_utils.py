@@ -225,7 +225,7 @@ def get_mean_object_features(image: torch.Tensor, label: torch.Tensor, num_class
     label = label.squeeze()
     
     ## use the standard torch onehot implementation to avoid dropping unused classes
-    sparse_onehot = torch.nn.functional.one_hot(label.long(), num_classes=num_classes+1).flatten(0, 1).transpose(0, 1).to_sparse_coo().float()
+    sparse_onehot = torch.nn.functional.one_hot(label.long(), num_classes=num_classes).flatten(0, 1).transpose(0, 1).to_sparse_coo().float()
     out = torch.mm(sparse_onehot, image.flatten(1).T)  # object features
     sums = torch.sparse.sum(sparse_onehot, dim=(1,)).to_dense()  # object areas
     out = out / sums[None].T  # mean object features
