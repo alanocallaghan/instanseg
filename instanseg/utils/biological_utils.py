@@ -215,17 +215,17 @@ def resolve_cell_and_nucleus_boundaries(lab: torch.Tensor, allow_unnucleated_cel
     return torch.stack((nuclei_labels, cell_labels)).unsqueeze(0)
 
 
-def get_mean_object_features(image: torch.Tensor, label: torch.Tensor, num_classes: int = -1) -> torch.Tensor:
+def get_mean_object_features(image: torch.Tensor, label: torch.Tensor, droplabels: bool = True) -> torch.Tensor:
     # image is C,H,W
     # label is H,W
+    # droplabels: drop unused labels (ie remap to contiguous values)
     # returns a tensor of size N,C for N objects and C channels
 
     if label.max() == 0:
         return torch.tensor([])
     label = label.squeeze()
     
-    ## use the standard torch onehot implementation to avoid dropping unused classes
-    sparse_onehot = torch.nn.functional.one_hot(label.long(), num_classes=num_classes).flatten(0, 1).transpose(0, 1).to_sparse_coo().float()
+    sparse_onehot = torch_sparse_onehot(label, flatten=True, remap=droplabels)[0]
     out = torch.mm(sparse_onehot, image.flatten(1).T)  # object features
     sums = torch.sparse.sum(sparse_onehot, dim=(1,)).to_dense()  # object areas
     out = out / sums[None].T  # mean object features
@@ -237,11 +237,11 @@ def get_features_by_location(input_tensor: torch.Tensor, lab: torch.Tensor, to_n
     # lab is 1,2,H,W where the first channel is nuclei and the second is whole cell
     ## specify number of classes to ensure cell i matches nucleus i matches cytoplasm i
     num_classes = int(torch.max(lab).item() + 1)
-    X_cell = get_mean_object_features(input_tensor, lab[0, 1], num_classes)
-    X_nuclei = get_mean_object_features(input_tensor, lab[0, 0], num_classes)
+    X_cell = get_mean_object_features(input_tensor, lab[0, 1], droplabels=False)
+    X_nuclei = get_mean_object_features(input_tensor, lab[0, 0], droplabels=False)
 
     cytoplasm_lab = (lab[0, 0] == 0).float() * lab[0, 1]
-    X_cytoplasm = get_mean_object_features(input_tensor, cytoplasm_lab, num_classes)
+    X_cytoplasm = get_mean_object_features(input_tensor, cytoplasm_lab, droplabels=False)
 
 
     if to_numpy:

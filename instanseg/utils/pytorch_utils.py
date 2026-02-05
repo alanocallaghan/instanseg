@@ -263,10 +263,11 @@ def fast_dual_iou(onehot1: torch.Tensor, onehot2: torch.Tensor) -> torch.Tensor:
     return (intersection / union)[:C1, :C2]
 
 
-def torch_sparse_onehot(x: torch.Tensor, flatten: bool = False) -> Tuple[torch.Tensor, torch.Tensor]:
+def torch_sparse_onehot(x: torch.Tensor, flatten: bool = False, remap: bool = True) -> Tuple[torch.Tensor, torch.Tensor]:
     # x is a labeled image of shape _,_,H,W returns a sparse tensor of shape C,H,W
     unique_values = torch.unique(x, sorted=True)
-    x = torch_fastremap(x)
+    if remap:
+        x = torch_fastremap(x)
 
     H, W = x.shape[-2], x.shape[-1]
 
