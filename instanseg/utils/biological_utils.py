@@ -215,7 +215,7 @@ def resolve_cell_and_nucleus_boundaries(lab: torch.Tensor, allow_unnucleated_cel
     return torch.stack((nuclei_labels, cell_labels)).unsqueeze(0)
 
 
-def get_mean_object_features(image: torch.Tensor, label: torch.Tensor, max_label: int = None) -> torch.Tensor:
+def get_mean_object_features(image: torch.Tensor, label: torch.Tensor, max_label: int = -1) -> torch.Tensor:
     # image is C,H,W
     # label is H,W
     # max_label: highest label, useful if calculating mean features for different compartments
