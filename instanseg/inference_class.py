@@ -496,9 +496,9 @@ class InstanSeg():
                 image = interpolate(image, size=original_shape[-2:], mode="bilinear")
 
         if return_image_tensor:
-            return instances.cpu(), image.cpu()
+            return instances, image
         else:
-            return instances.cpu()
+            return instances
 
     def eval_medium_image(self,
                           image: torch.Tensor, 
@@ -598,9 +598,9 @@ class InstanSeg():
         image = _to_ndim(image, original_ndim)
 
         if return_image_tensor:
-            return instances.cpu(), image.cpu()
+            return instances, image
         else:
-            return instances.cpu()
+            return instances
 
         
     def eval_whole_slide_image(self,
